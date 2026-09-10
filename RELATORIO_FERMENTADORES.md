@@ -116,12 +116,29 @@ MOVE(FIC796702.IHM_SP, FIC796702.PID.SP)   <- o setpoint vem da IHM
 ```
 
 E um setpoint unico para o ciclo inteiro - nao um por passo - e vem da IHM, nao da receita nem de
-constante gravada no programa. Por isso o valor nao aparece no L5X: ele esta no supervisorio. O
-valor em operacao e de aproximadamente **350 hl/h**, e e o que explica a vazao se repetir em todos
-os passos de circulacao.
+constante gravada no programa. Por isso o valor nao aparece no L5X: ele esta no supervisorio.
 
-> **O teto da nota (300 hl/h) esta abaixo do setpoint da propria maquina.**
-> Enquanto o maximo for 300, a nota reprova o CIP por fazer o que foi mandado fazer.
+**Qual e o valor do setpoint nos fermentadores ainda nao esta confirmado.** Os maximos observados
+batem em 349-350 hl/h nos quatro passos de circulacao, o que sugere teto de 350. Mas as medianas
+ficam sistematicamente abaixo disso:
+
+| Passo | Etapa | Mediana medida |
+|---|---|---|
+| 15 | Alcalino 1 | 342,24 |
+| 20 | Alcalino 2 | **319,22** |
+| 43 | Acido | 345,55 |
+| 47 | Sanitizacao | 340,03 |
+
+Ou seja: a estacao chega perto de 350, mas nao sustenta. Ha duas leituras possiveis e os dados nao
+separam uma da outra - ou o setpoint da IHM esta configurado abaixo de 350, ou esta em 350 e a
+malha nao consegue segurar (bomba, valvula ou restricao na linha). O passo 20, com 33% das amostras
+proximas de zero e picos de 1046 hl/h, aponta mais para a segunda hipotese.
+
+> **De qualquer forma, o teto da nota (300 hl/h) esta abaixo da vazao que a estacao pratica.**
+> Enquanto o maximo for 300, a nota reprova o CIP por circular na vazao em que ele circula.
+
+**Como confirmar em dois minutos:** abrir a tela de CIP no supervisorio e ler o setpoint de vazao
+dos fermentadores. Se estiver em 350, o Alcalino 2 vira caso de manutencao, nao de faixa.
 
 **Proposta:** manter o **minimo em 140 hl/h** (o limite critico para a limpeza, que ninguem
 esta propondo afrouxar) e subir o **maximo de 300 para 390 hl/h**.

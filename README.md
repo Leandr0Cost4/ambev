@@ -68,16 +68,21 @@ MOVE(FIT796680.Out, FIC796680.AUX_PV)      <- a vazao medida alimenta o PID
 MOVE(FIC796680.IHM_SP, FIC796680.PID.SP)   <- o setpoint vem da IHM
 ```
 
-E um setpoint **unico para o ciclo inteiro**, nao um por passo. O valor em operacao e de
-aproximadamente **350 hl/h** - por isso a mediana de vazao e praticamente identica em todos os
-passos de circulacao.
+E um setpoint **unico para o ciclo inteiro**, nao um por passo.
 
-> **O teto da nota (300 hl/h) esta 50 hl/h abaixo do setpoint da propria maquina.**
-> Enquanto o maximo for 300, a nota reprova o CIP por fazer exatamente o que foi mandado fazer.
+**Nos maturadores o valor esta confirmado pelos dados: 350 hl/h.** A mediana de vazao fica em
+349,x em todos os passos de circulacao, com desvio de 2% a 3%.
+
+**Nos fermentadores o valor ainda nao esta confirmado.** Os maximos batem em 349-350, mas as
+medianas ficam entre 319 e 345 - a estacao chega perto de 350 e nao sustenta. Pode ser setpoint
+configurado mais baixo, ou setpoint em 350 com a malha nao segurando (bomba, valvula, restricao).
+
+> **Nas duas estacoes, o teto da nota (300 hl/h) esta abaixo da vazao praticada.**
+> Enquanto o maximo for 300, a nota reprova o CIP por circular na vazao em que ele circula.
 
 O setpoint vem da IHM, nao da receita nem de constante gravada no programa - por isso o valor nao
-aparece no L5X. Para confirmar o numero exato, o caminho mais rapido e a tela de CIP no
-supervisorio.
+aparece no L5X. Para confirmar o numero exato de cada estacao, o caminho mais rapido e a tela de
+CIP no supervisorio.
 
 ---
 
