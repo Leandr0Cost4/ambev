@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nota de CIP — Fermentadores</title>
+<style>
+  :root{
+    --tinta:#16181d; --fraca:#5b6472; --linha:#e2e6ec;
+    --fundo:#fff; --papel:#f6f7f9;
+    --marca:#0b5c3f; --alerta:#a4442c; --atencao:#8a6100; --ok:#1d6b47;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);color:var(--tinta);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .folha{max-width:960px;margin:0 auto;background:var(--fundo);padding:56px 56px 80px}
+  header{border-bottom:3px solid var(--marca);padding-bottom:24px;margin-bottom:36px}
+  .etiqueta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--marca);font-weight:700}
+  h1{font-size:31px;line-height:1.2;margin:10px 0 14px;font-weight:700;letter-spacing:-.02em}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:var(--fraca)}
+  .meta b{color:var(--tinta);font-weight:600}
+  h2{font-size:22px;margin:52px 0 14px;font-weight:700;letter-spacing:-.01em}
+  h3{font-size:17px;margin:32px 0 10px;font-weight:700}
+  p{margin:0 0 14px}
+  .destaque{background:#f0f6f3;border-left:4px solid var(--marca);padding:18px 22px;margin:22px 0;border-radius:0 6px 6px 0}
+  .destaque p:last-child{margin-bottom:0}
+  .destaque strong{color:var(--marca)}
+  .pergunta{background:#fdf9ef;border-left:4px solid var(--atencao);padding:16px 22px;margin:18px 0;border-radius:0 6px 6px 0;font-size:15px}
+  .pergunta p:last-child{margin-bottom:0}
+  .pergunta .rot{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--atencao);font-weight:700;display:block;margin-bottom:6px}
+  .rolagem{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+  th{text-align:left;font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--fraca);border-bottom:2px solid var(--linha);padding:9px 12px 9px 0;white-space:nowrap}
+  td{padding:9px 12px 9px 0;border-bottom:1px solid var(--linha);vertical-align:top}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:18px}
+  tr.grave td{background:#fdf4f1}
+  tr.total td{font-weight:700;border-top:2px solid var(--tinta);border-bottom:none;background:transparent}
+  .ruim{color:var(--alerta);font-weight:600}
+  .bom{color:var(--ok);font-weight:600}
+  .aviso{color:var(--atencao);font-weight:600}
+  .cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:22px 0}
+  .cartao{border:1px solid var(--linha);border-radius:8px;padding:16px 18px}
+  .cartao .rot{font-size:12px;color:var(--fraca);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .cartao .val{font-size:30px;font-weight:700;letter-spacing:-.02em;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+  .cartao .sub{font-size:13px;color:var(--fraca)}
+  .decisao{border:1px solid var(--linha);border-radius:8px;padding:4px 24px 22px;margin:26px 0}
+  .decisao h3{display:flex;align-items:baseline;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .num{background:var(--marca);color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.04em;white-space:nowrap}
+  .peso{font-size:13px;font-weight:600;color:var(--fraca);margin-left:auto}
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--linha);font-size:13px;color:var(--fraca)}
+  code{background:var(--papel);padding:1px 5px;border-radius:3px;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  @media (max-width:700px){.folha{padding:32px 20px 56px}h1{font-size:25px}h2{font-size:19px;margin-top:40px}}
+  @media print{body{background:#fff}.folha{max-width:none;padding:0}.decisao,.cartao{break-inside:avoid}h2{break-after:avoid}table{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="folha">
+
+<header>
+  <div class="etiqueta">Adega &middot; Nota de CIP &middot; Norma ZBS-503661</div>
+  <h1>Levantamento dos valores medidos por passo<br>CIP dos Fermentadores</h1>
+  <div class="meta">
+    <span><b>Período:</b> 26/08/2026 a 10/09/2026</span>
+    <span><b>Ciclos:</b> 23 (CIP) e 4 (Shot)</span>
+    <span><b>Emitido em:</b> 10/09/2026</span>
+  </div>
+</header>
+
+<div class="destaque">
+  <p><strong>Leia isto antes dos números.</strong> A nota de CIP dos fermentadores está em operação de
+  teste. As faixas de referência que estão hoje no sistema <strong>não foram definidas por engenharia
+  para os fermentadores</strong> — foram copiadas por analogia da Adega de Pressão, que já tinha a nota
+  implantada, apenas para que o painel começasse a produzir número.</p>
+  <p>Portanto: <strong>a nota média de 5,76 não significa que o CIP dos fermentadores está ruim.</strong>
+  Significa que ainda não existe uma faixa de referência validada para esta estação. O objetivo deste
+  levantamento é mostrar o valor real medido em cada item, para que se decida, item por item, se é a
+  <strong>faixa</strong> que precisa ser corrigida ou se é o <strong>processo</strong> que precisa de ação.</p>
+</div>
+
+<h2>1. Situação atual</h2>
+
+<div class="cartoes">
+  <div class="cartao"><div class="rot">CIP Fermentadores</div><div class="val">5,76</div>
+    <div class="sub">nota média em 23 ciclos<br>menor 2,00 &middot; maior 8,00</div></div>
+  <div class="cartao"><div class="rot">Shot Fermentadores</div><div class="val">4,75</div>
+    <div class="sub">nota média em 4 ciclos<br>menor 1,00 &middot; maior 6,00</div></div>
+  <div class="cartao"><div class="rot">Conformidade</div><div class="val ruim">0%</div>
+    <div class="sub">nenhum ciclo atingiu<br>o corte de 9,0 da norma</div></div>
+  <div class="cartao"><div class="rot">Itens fora por ciclo</div><div class="val">6,8</div>
+    <div class="sub">de 15 itens avaliados<br>no CIP</div></div>
+</div>
+
+<p>A conta fecha exatamente: 10,00 &minus; 4,24 pontos perdidos = 5,76 no CIP, e 10,00 &minus; 5,27 = 4,75
+no Shot. Os dados são internamente consistentes.</p>
+
+<h2>2. Valores medidos por passo</h2>
+
+<p>Média, mínimo e máximo são os <b>valores medidos</b> por ciclo. A faixa é a <b>referência usada hoje
+na nota</b>. Vazão em hl/h, condutividade em mS, pressão em bar.</p>
+
+<h3>CIP Fermentadores &mdash; receita MISTO</h3>
+<div class="rolagem">
+<table>
+<thead><tr><th class="n">Passo</th><th>Etapa</th><th>Item</th><th class="n">Média</th><th class="n">Mínimo</th><th class="n">Máximo</th><th>Faixa da nota</th></tr></thead>
+<tbody>
+  <tr class="grave"><td class="n">13</td><td>Enxágue Inicial</td><td>Vazão</td><td class="n">0,93</td><td class="n">0,87</td><td class="n">0,99</td><td>110 a 400</td></tr>
+  <tr class="grave"><td class="n">15</td><td>Alcalino 1</td><td>Vazão</td><td class="n">323,07</td><td class="n">192,90</td><td class="n">349,98</td><td>140 a 300</td></tr>
+  <tr class="grave"><td class="n">15</td><td>Alcalino 1</td><td>Condutividade</td><td class="n">54,07</td><td class="n">42,40</td><td class="n">63,48</td><td>100 a 140</td></tr>
+  <tr><td class="n">15</td><td>Alcalino 1</td><td>Pressão</td><td class="n">2,09</td><td class="n">0,07</td><td class="n">3,93</td><td>0,3 a 3,0</td></tr>
+  <tr class="grave"><td class="n">17</td><td>Enxágue Intermediário 1</td><td>Vazão</td><td class="n aviso">sem leitura</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td>110 a 400</td></tr>
+  <tr><td class="n">20</td><td>Alcalino 2</td><td>Vazão</td><td class="n">278,32</td><td class="n">151,12</td><td class="n">445,73</td><td>140 a 300</td></tr>
+  <tr><td class="n">20</td><td>Alcalino 2</td><td>Condutividade</td><td class="n bom">115,63</td><td class="n">105,71</td><td class="n">126,95</td><td>100 a 140</td></tr>
+  <tr><td class="n">20</td><td>Alcalino 2</td><td>Pressão</td><td class="n">1,50</td><td class="n">0,07</td><td class="n">2,33</td><td>0,3 a 3,0</td></tr>
+  <tr><td class="n">22</td><td>Enxágue Intermediário 2</td><td>Vazão</td><td class="n">265,82</td><td class="n">131,03</td><td class="n">344,70</td><td>110 a 400</td></tr>
+  <tr class="grave"><td class="n">43</td><td>Ácido</td><td>Vazão</td><td class="n">328,82</td><td class="n">234,56</td><td class="n">349,59</td><td>140 a 300</td></tr>
+  <tr><td class="n">43</td><td>Ácido</td><td>Condutividade</td><td class="n bom">36,24</td><td class="n">30,59</td><td class="n">46,09</td><td>25 a 55</td></tr>
+  <tr><td class="n">43</td><td>Ácido</td><td>Pressão</td><td class="n">2,11</td><td class="n">0,07</td><td class="n">3,88</td><td>0,3 a 3,0</td></tr>
+  <tr><td class="n">45</td><td>Enxágue Intermediário 3</td><td>Vazão</td><td class="n aviso">116,93</td><td class="n">6,67</td><td class="n">226,32</td><td>110 a 400</td></tr>
+  <tr class="grave"><td class="n">47</td><td>Sanitização</td><td>Vazão</td><td class="n">328,99</td><td class="n">265,42</td><td class="n">350,38</td><td>160 a 340</td></tr>
+  <tr><td class="n">47</td><td>Sanitização</td><td>Pressão</td><td class="n">2,14</td><td class="n">0,07</td><td class="n">4,00</td><td>0,3 a 3,0</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Shot Fermentadores &mdash; receita SHOT_1</h3>
+<div class="rolagem">
+<table>
+<thead><tr><th class="n">Passo</th><th>Etapa</th><th>Item</th><th class="n">Média</th><th class="n">Mínimo</th><th class="n">Máximo</th><th>Faixa da nota</th></tr></thead>
+<tbody>
+  <tr class="grave"><td class="n">6</td><td>Shot Cáustico</td><td>Vazão</td><td class="n">65,45</td><td class="n">62,62</td><td class="n">68,26</td><td>140 a 300</td></tr>
+  <tr class="grave"><td class="n">6</td><td>Shot Cáustico</td><td>Condutividade</td><td class="n">26,13</td><td class="n">18,11</td><td class="n">38,81</td><td>100 a 140</td></tr>
+  <tr><td class="n">6</td><td>Shot Cáustico</td><td>Pressão</td><td class="n">0,83</td><td class="n">0,69</td><td class="n">1,02</td><td>0,3 a 3,0</td></tr>
+  <tr><td class="n">8</td><td>Enxágue Água Recuperada</td><td>Vazão</td><td class="n">247,64</td><td class="n">101,57</td><td class="n">312,71</td><td>110 a 400</td></tr>
+  <tr class="grave"><td class="n">10</td><td>Circulação Ácido</td><td>Vazão</td><td class="n">311,20</td><td class="n">273,51</td><td class="n">330,59</td><td>140 a 300</td></tr>
+  <tr><td class="n">10</td><td>Circulação Ácido</td><td>Condutividade</td><td class="n bom">36,74</td><td class="n">32,83</td><td class="n">43,11</td><td>25 a 55</td></tr>
+  <tr><td class="n">10</td><td>Circulação Ácido</td><td>Pressão</td><td class="n">2,05</td><td class="n">2,04</td><td class="n">2,05</td><td>0,3 a 3,0</td></tr>
+  <tr><td class="n">12</td><td>Empurre Água Recuperada</td><td>Vazão</td><td class="n">198,51</td><td class="n">147,18</td><td class="n">244,43</td><td>110 a 400</td></tr>
+  <tr><td class="n">14</td><td>Circulação Sanitizante</td><td>Vazão</td><td class="n">311,38</td><td class="n">273,21</td><td class="n">330,99</td><td>160 a 340</td></tr>
+  <tr><td class="n">14</td><td>Circulação Sanitizante</td><td>Pressão</td><td class="n">2,05</td><td class="n">2,05</td><td class="n">2,05</td><td>0,3 a 3,0</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Sobre o Shot:</b> dos 4 ciclos, um único ciclo ficou praticamente sem dados e tirou nota 1,00. Os
+outros três tiraram 6,00. Esse ciclo sozinho derruba a média de 6,00 para 4,75, e sete dos dez itens
+do Shot reprovam apenas por causa dele.</p>
+
+<h2>3. Onde a nota está sendo perdida</h2>
+
+<h3>CIP Fermentadores &mdash; 4,24 pontos perdidos por ciclo</h3>
+<div class="rolagem">
+<table>
+<thead><tr><th>Etapa</th><th>Item</th><th class="n">Peso</th><th class="n">Reprovou</th><th class="n">Pontos</th><th class="n">Medido</th><th>Faixa</th><th>Motivo</th></tr></thead>
+<tbody>
+  <tr class="grave"><td>Alcalino 1</td><td>Condutividade</td><td class="n">1,0</td><td class="n">23 de 23</td><td class="n">1,00</td><td class="n">54,07</td><td>100 a 140</td><td>Abaixo do mínimo</td></tr>
+  <tr class="grave"><td>Enxágue Inicial</td><td>Vazão</td><td class="n">0,5</td><td class="n">23 de 23</td><td class="n">0,50</td><td class="n">0,93</td><td>110 a 400</td><td>Passo sem dado</td></tr>
+  <tr class="grave"><td>Enxágue Intermediário 1</td><td>Vazão</td><td class="n">0,5</td><td class="n">23 de 23</td><td class="n">0,50</td><td class="n">&mdash;</td><td>110 a 400</td><td>Passo sem dado</td></tr>
+  <tr class="grave"><td>Ácido</td><td>Vazão</td><td class="n">0,5</td><td class="n">21 de 23</td><td class="n">0,46</td><td class="n">328,82</td><td>140 a 300</td><td>Acima do máximo</td></tr>
+  <tr class="grave"><td>Sanitização</td><td>Vazão</td><td class="n">1,0</td><td class="n">10 de 23</td><td class="n">0,43</td><td class="n">328,99</td><td>160 a 340</td><td>Acima do máximo</td></tr>
+  <tr class="grave"><td>Alcalino 1</td><td>Vazão</td><td class="n">0,5</td><td class="n">20 de 23</td><td class="n">0,43</td><td class="n">323,07</td><td>140 a 300</td><td>Acima do máximo</td></tr>
+  <tr><td>Sanitização</td><td>Pressão</td><td class="n">1,0</td><td class="n">5 de 23</td><td class="n">0,22</td><td class="n">2,14</td><td>0,3 a 3,0</td><td>Excursão pontual</td></tr>
+  <tr><td>Enxágue Intermediário 3</td><td>Vazão</td><td class="n">0,5</td><td class="n">10 de 23</td><td class="n">0,22</td><td class="n">116,93</td><td>110 a 400</td><td>Instável</td></tr>
+  <tr><td>Alcalino 2</td><td>Vazão</td><td class="n">0,5</td><td class="n">9 de 23</td><td class="n">0,20</td><td class="n">278,32</td><td>140 a 300</td><td>Pico isolado</td></tr>
+  <tr><td>Alcalino 1</td><td>Pressão</td><td class="n">0,5</td><td class="n">5 de 23</td><td class="n">0,11</td><td class="n">2,09</td><td>0,3 a 3,0</td><td>Excursão pontual</td></tr>
+  <tr><td>Ácido</td><td>Pressão</td><td class="n">0,5</td><td class="n">4 de 23</td><td class="n">0,09</td><td class="n">2,11</td><td>0,3 a 3,0</td><td>Excursão pontual</td></tr>
+  <tr><td>Ácido</td><td>Condutividade</td><td class="n">1,0</td><td class="n">1 de 23</td><td class="n">0,04</td><td class="n">36,24</td><td>25 a 55</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Enxágue Intermediário 2</td><td>Vazão</td><td class="n">0,5</td><td class="n">1 de 23</td><td class="n">0,02</td><td class="n">265,82</td><td>110 a 400</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Alcalino 2</td><td>Pressão</td><td class="n">0,5</td><td class="n">1 de 23</td><td class="n">0,02</td><td class="n">1,50</td><td>0,3 a 3,0</td><td>Ciclo sem dado</td></tr>
+  <tr class="total"><td colspan="4">Total perdido por ciclo</td><td class="n">4,24</td><td colspan="3"></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Shot Fermentadores &mdash; 5,27 pontos perdidos por ciclo</h3>
+<div class="rolagem">
+<table>
+<thead><tr><th>Etapa</th><th>Item</th><th class="n">Peso</th><th class="n">Reprovou</th><th class="n">Pontos</th><th class="n">Medido</th><th>Faixa</th><th>Motivo</th></tr></thead>
+<tbody>
+  <tr class="grave"><td>Shot Cáustico</td><td>Condutividade</td><td class="n">2,0</td><td class="n">4 de 4</td><td class="n">2,00</td><td class="n">26,13</td><td>100 a 140</td><td>Abaixo do mínimo</td></tr>
+  <tr class="grave"><td>Shot Cáustico</td><td>Vazão</td><td class="n">1,0</td><td class="n">4 de 4</td><td class="n">1,00</td><td class="n">65,45</td><td>140 a 300</td><td>Abaixo do mínimo</td></tr>
+  <tr class="grave"><td>Circulação Ácido</td><td>Vazão</td><td class="n">1,0</td><td class="n">3 de 4</td><td class="n">0,75</td><td class="n">311,20</td><td>140 a 300</td><td>Acima do máximo</td></tr>
+  <tr><td>Circulação Ácido</td><td>Condutividade</td><td class="n">2,0</td><td class="n">1 de 4</td><td class="n">0,50</td><td class="n">36,74</td><td>25 a 55</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Shot Cáustico</td><td>Pressão</td><td class="n">1,0</td><td class="n">1 de 4</td><td class="n">0,25</td><td class="n">0,83</td><td>0,3 a 3,0</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Circulação Ácido</td><td>Pressão</td><td class="n">1,0</td><td class="n">1 de 4</td><td class="n">0,25</td><td class="n">2,05</td><td>0,3 a 3,0</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Circulação Sanitizante</td><td>Pressão</td><td class="n">0,5</td><td class="n">1 de 4</td><td class="n">0,13</td><td class="n">2,05</td><td>0,3 a 3,0</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Circulação Sanitizante</td><td>Vazão</td><td class="n">0,5</td><td class="n">1 de 4</td><td class="n">0,13</td><td class="n">311,38</td><td>160 a 340</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Empurre Água Recuperada</td><td>Vazão</td><td class="n">0,5</td><td class="n">1 de 4</td><td class="n">0,13</td><td class="n">198,51</td><td>110 a 400</td><td>Ciclo sem dado</td></tr>
+  <tr><td>Enxágue Água Recuperada</td><td>Vazão</td><td class="n">0,5</td><td class="n">1 de 4</td><td class="n">0,13</td><td class="n">247,64</td><td>110 a 400</td><td>Ciclo sem dado</td></tr>
+  <tr class="total"><td colspan="4">Total perdido por ciclo</td><td class="n">5,27</td><td colspan="3"></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>4. As quatro decisões</h2>
+
+<p>Os 14 itens do CIP e os 10 do Shot se agrupam em quatro decisões. <b>Nenhuma delas sozinha leva a
+nota acima do corte de 9,0. As quatro juntas levam.</b></p>
+
+<div class="decisao">
+  <h3><span class="num">Decisão 1</span> Teto de vazão <span class="peso">1,49 pts no CIP + 0,75 no Shot</span></h3>
+  <p>A bomba de CIP dos fermentadores circula de forma muito estável entre <b>320 e 345 hl/h</b>. As
+  faixas atuais terminam em 300 hl/h. O desvio é de apenas 7% a 11% da média nas etapas de circulação
+  — <b>isso é um processo estável</b>. O problema não é a bomba oscilar; é o teto de 300 hl/h não
+  corresponder à vazão que a bomba instalada entrega.</p>
+  <div class="rolagem">
+  <table>
+  <thead><tr><th>Etapa</th><th class="n">Média</th><th class="n">Mediana</th><th class="n">Mínimo</th><th class="n">Máximo</th><th class="n">Desvio</th><th>Faixa</th><th class="n">Atende</th></tr></thead>
+  <tbody>
+    <tr><td>Alcalino 1</td><td class="n">323,07</td><td class="n">337,23</td><td class="n">192,90</td><td class="n">349,98</td><td class="n">36,17</td><td>140 a 300</td><td class="n ruim">14%</td></tr>
+    <tr><td>Ácido</td><td class="n">328,82</td><td class="n">341,40</td><td class="n">234,56</td><td class="n">349,59</td><td class="n">26,97</td><td>140 a 300</td><td class="n ruim">9%</td></tr>
+    <tr><td>Sanitização</td><td class="n">328,99</td><td class="n">336,70</td><td class="n">265,42</td><td class="n">350,38</td><td class="n">22,37</td><td>160 a 340</td><td class="n aviso">62%</td></tr>
+    <tr><td>Alcalino 2</td><td class="n">278,32</td><td class="n">291,29</td><td class="n">151,12</td><td class="n">445,73</td><td class="n">64,35</td><td>140 a 300</td><td class="n aviso">61%</td></tr>
+    <tr><td>Shot &mdash; Circulação Ácido</td><td class="n">311,20</td><td class="n">329,50</td><td class="n">273,51</td><td class="n">330,59</td><td class="n">32,64</td><td>140 a 300</td><td class="n ruim">33%</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <p><b>Proposta:</b> manter o <b>mínimo em 140 hl/h</b> — o limite crítico para a limpeza, que ninguém
+  está propondo afrouxar — e subir o <b>máximo de 300 para 390 hl/h</b>. Só o teto se move.</p>
+  <div class="pergunta"><span class="rot">Para decisão</span>
+    <p>O teto de 300 hl/h tem base física (limite do spray-ball, limite de pressão no tanque) ou foi
+    herdado do padrão da ADP? Se foi herdado, subir o teto é a correção. Se for limite físico real, a
+    bomba é que precisa ser estrangulada — e aí é obra.</p>
+  </div>
+</div>
+
+<div class="decisao">
+  <h3><span class="num">Decisão 2</span> Condutividade do alcalino <span class="peso">1,00 pt no CIP + 2,00 no Shot</span></h3>
+  <p>Dentro da mesma estação, os dois alcalinos têm concentrações bem diferentes.</p>
+  <div class="rolagem">
+  <table>
+  <thead><tr><th>Etapa</th><th class="n">Condutividade média</th><th class="n">Desvio</th><th>Faixa</th><th class="n">Atende</th></tr></thead>
+  <tbody>
+    <tr><td>Alcalino 1</td><td class="n ruim">54,07 mS</td><td class="n">5,20</td><td>100 a 140</td><td class="n ruim">0 de 21</td></tr>
+    <tr><td>Alcalino 2</td><td class="n bom">115,63 mS</td><td class="n">6,08</td><td>100 a 140</td><td class="n bom">21 de 21</td></tr>
+    <tr><td>Shot Cáustico</td><td class="n ruim">26,13 mS</td><td class="n">11,11</td><td>100 a 140</td><td class="n ruim">0 de 3</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <p>O Alcalino 2 está perfeito e totalmente dentro da faixa. O Alcalino 1 está em <b>47% da concentração
+  do Alcalino 2</b>, de forma estável (desvio de apenas 5,20 mS em 21 ciclos), e circula cerca de
+  <b>38% do tempo</b> do Alcalino 2. Esse é o padrão típico de um <b>primeiro alcalino de pré-lavagem</b>,
+  que sai diluído porque se mistura com a água residual do enxágue anterior e arrasta a sujeira grossa.</p>
+  <div class="pergunta"><span class="rot">Para decisão</span>
+    <p>O Alcalino 1 é, por projeto, uma pré-lavagem alcalina diluída — e nesse caso precisa de faixa
+    própria (algo como 40 a 70 mS), diferente do Alcalino 2? Ou os 54 mS são concentração insuficiente,
+    e a dosagem de soda do primeiro alcalino precisa de correção na lógica do CIP?</p>
+  </div>
+  <p>O caso do <b>Shot Cáustico a 26 mS</b> é mais forte: um shot deveria ser uma aplicação concentrada,
+  e 26 mS é um quarto do que o Alcalino 2 entrega. Vale conferir se a soda está realmente sendo dosada
+  nesse passo. <b>Ressalva:</b> há apenas 3 ciclos com dado, então a amostra ainda é pequena.</p>
+</div>
+
+<div class="decisao">
+  <h3><span class="num">Decisão 3</span> Passos que não chegam ao banco <span class="peso">1,00 pt no CIP</span></h3>
+  <p>Dois itens do CIP reprovam em 23 de 23 ciclos simplesmente porque o passo nunca é capturado.</p>
+  <div class="rolagem">
+  <table>
+  <thead><tr><th class="n">Passo</th><th>Rotina no PLC</th><th>Papel na nota</th><th class="n">Amostras em 23 ciclos</th></tr></thead>
+  <tbody>
+    <tr class="grave"><td class="n">13</td><td><code>CIP_AGUA_ENXAGUE</code></td><td>Enxágue Inicial</td><td class="n">5 &mdash; vazão ~0,9 hl/h</td></tr>
+    <tr class="grave"><td class="n">17</td><td><code>CIP_AGUA_REC_EMPURRE</code></td><td>Enxágue Intermediário 1</td><td class="n ruim">0</td></tr>
+    <tr><td class="n">18</td><td><code>CIP_DRENO_EMPURRE</code></td><td>não pontuado</td><td class="n">0</td></tr>
+    <tr><td class="n">19</td><td><code>CIP_ALCALINO_2_INICIA</code></td><td>não pontuado</td><td class="n">0</td></tr>
+    <tr><td class="n">12</td><td><code>CIP_AGUA_REC_ENXAGUE</code></td><td>não pontuado</td><td class="n bom">939 &mdash; vazão 252 hl/h</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <p><b>Primeiro achado:</b> o passo 12 é onde o enxágue inicial realmente acontece — 939 amostras com
+  vazão contínua de 252 hl/h. O passo 13, que é o que está sendo pontuado, tem 5 amostras em 23 ciclos
+  e vazão praticamente zero: o CIP entra nesse passo, mas não passa água por ele. A diferença é que o
+  passo 12 usa <b>água recuperada</b> e o 13 usa <b>água industrial</b>.</p>
+  <p><b>Segundo achado:</b> os passos 17, 18 e 19 nunca aparecem em nenhum ciclo, embora o 16
+  (376 amostras) e o 20 (7.158 amostras) apareçam normalmente. Ou esses passos são curtos demais para a
+  taxa de amostragem atual, ou a receita está pulando eles.</p>
+  <div class="pergunta"><span class="rot">Para decisão</span>
+    <p>O enxágue inicial da receita é o de água recuperada (passo 12) ou o de água industrial (passo 13)?
+    Se for o 12, a nota deve pontuar o passo 12 e o item volta a ser avaliável. E o empurre com água
+    recuperada (passo 17) está realmente sendo executado?</p>
+  </div>
+</div>
+
+<div class="decisao">
+  <h3><span class="num">Decisão 4</span> Confiabilidade dos instrumentos <span class="peso">0,44 pt no CIP + 0,63 no Shot</span></h3>
+  <p>Aparecem dois valores fixos repetidos em passos que não têm relação entre si — assinatura de falha
+  de instrumento ou de comunicação, e não de processo.</p>
+  <div class="rolagem">
+  <table>
+  <thead><tr><th>Valor</th><th>Onde aparece</th></tr></thead>
+  <tbody>
+    <tr><td class="ruim">0,07 bar</td><td>Valor mínimo idêntico nos passos 15, 20, 43 e 47</td></tr>
+    <tr><td class="ruim">1046,25 hl/h</td><td>Valor máximo idêntico nos passos 20, 21, 22, 44, 45 e no passo 7 do Shot</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <p>A média de pressão está boa em todos os passos (1,50 a 2,14 bar, bem dentro de 0,3 a 3,0). As
+  reprovações acontecem em ciclos isolados em que a leitura vai a praticamente zero ou passa de 3,9 bar.
+  Já o valor de 1046,25 hl/h é <b>cerca de três vezes a vazão normal da bomba</b> e se repete exatamente
+  igual em seis passos diferentes — quase certamente saturação de escala do transmissor ou leitura
+  inválida.</p>
+  <div class="destaque">
+    <p><strong>Atenção:</strong> esses valores estão contaminando as médias deste próprio relatório. O
+    caso mais claro é o Enxágue Intermediário 3 (passo 45): média de 116,93 hl/h com 83% das amostras
+    próximas de zero e picos de 1046,25. Essa média não descreve nada real. Convém filtrar essas duas
+    leituras na coleta <strong>antes</strong> de recalibrar qualquer faixa, para não calibrar em cima
+    de ruído.</p>
+  </div>
+</div>
+
+<h2>5. Questão em aberto: a vazão é contínua ou pulsada?</h2>
+
+<p>Em vários passos, um terço ou mais das amostras registra vazão praticamente zero enquanto a mediana
+registra vazão normal.</p>
+
+<div class="rolagem">
+<table>
+<thead><tr><th class="n">Passo</th><th>Etapa</th><th class="n">Amostras</th><th class="n">Vazão média</th><th class="n">Vazão mediana</th><th class="n">Amostras quase zero</th></tr></thead>
+<tbody>
+  <tr><td class="n">20</td><td>Alcalino 2</td><td class="n">7.158</td><td class="n">281,17</td><td class="n">319,22</td><td class="n aviso">33%</td></tr>
+  <tr><td class="n">21</td><td>Alcalino 2 &mdash; empurre</td><td class="n">274</td><td class="n">278,18</td><td class="n">312,10</td><td class="n aviso">36%</td></tr>
+  <tr><td class="n">44</td><td>Ácido &mdash; empurre</td><td class="n">107</td><td class="n">337,80</td><td class="n">91,78</td><td class="n aviso">40%</td></tr>
+  <tr class="grave"><td class="n">45</td><td>Enxágue Intermediário 3</td><td class="n">576</td><td class="n">56,54</td><td class="n">0,93</td><td class="n ruim">83%</td></tr>
+  <tr class="grave"><td class="n">6</td><td>Shot Cáustico</td><td class="n">218</td><td class="n">65,41</td><td class="n">0,93</td><td class="n ruim">75%</td></tr>
+  <tr class="grave"><td class="n">7</td><td>Shot &mdash; empurre</td><td class="n">339</td><td class="n">184,12</td><td class="n">0,93</td><td class="n ruim">77%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Quando isso acontece, <b>a média aritmética não representa o processo</b> — ela fica entre dois
+estados (parado e circulando) e não descreve nenhum dos dois.</p>
+
+<div class="pergunta"><span class="rot">Para decisão</span>
+  <p>A circulação nesses passos é pulsada por projeto (enche / esvazia / repete), ou o medidor
+  <code>FIT796702</code> está na linha de alimentação e lê zero enquanto o tanque está drenando? Se for
+  pulsada por projeto, a nota não pode usar média simples nesses passos — teria que usar a média apenas
+  dos períodos em que há circulação. Isso muda a forma de calcular, não a faixa.</p>
+</div>
+
+<h2>6. Quanto cada decisão vale na nota</h2>
+
+<div class="rolagem">
+<table>
+<thead><tr><th>CIP Fermentadores</th><th class="n">Nota projetada</th><th>Shot Fermentadores</th><th class="n">Nota projetada</th></tr></thead>
+<tbody>
+  <tr><td>Situação atual</td><td class="n ruim">5,76</td><td>Situação atual</td><td class="n ruim">4,75</td></tr>
+  <tr><td>+ Decisão 1 &mdash; teto de vazão 300 &rarr; 390</td><td class="n">~7,25</td><td>+ corrigir o ciclo sem dados</td><td class="n">~6,00</td></tr>
+  <tr><td>+ Decisão 2 &mdash; condutividade do Alcalino 1</td><td class="n">~8,25</td><td>+ Decisão 1 &mdash; teto de vazão</td><td class="n">~6,75</td></tr>
+  <tr><td>+ Decisão 3 &mdash; capturar os passos 13 e 17</td><td class="n aviso">~9,25</td><td>+ Decisão 2 &mdash; condutividade do cáustico</td><td class="n aviso">~8,75</td></tr>
+  <tr><td>+ Decisão 4 &mdash; filtrar leituras inválidas</td><td class="n bom">~9,70</td><td></td><td class="n"></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="destaque">
+  <p><strong>Conclusão:</strong> o corte de conformidade de 9,0 da norma ZBS-503661 só é alcançável com
+  as quatro decisões tomadas. Nenhuma isolada resolve.</p>
+</div>
+
+<h2>7. Resumo do que precisa de decisão</h2>
+
+<div class="rolagem">
+<table>
+<thead><tr><th class="n">#</th><th>Assunto</th><th>Quem decide</th><th>Impacto</th></tr></thead>
+<tbody>
+  <tr><td class="n">1</td><td>O teto de 300 hl/h é limite físico ou herdado da ADP?</td><td>Processo / Automação</td><td>1,49 + 0,75 pts</td></tr>
+  <tr><td class="n">2</td><td>O Alcalino 1 é pré-lavagem diluída (faixa própria) ou a dosagem está baixa?</td><td>Processo</td><td>1,00 + 2,00 pts</td></tr>
+  <tr><td class="n">3</td><td>O enxágue inicial é o passo 12 ou o 13? O passo 17 roda?</td><td>Processo / Automação</td><td>1,00 pt</td></tr>
+  <tr><td class="n">4</td><td>Filtrar as leituras de 0,07 bar e 1046,25 hl/h na coleta</td><td>Automação</td><td>0,44 + 0,63 pts</td></tr>
+  <tr><td class="n">5</td><td>A circulação é pulsada por projeto?</td><td>Processo</td><td>muda o cálculo</td></tr>
+</tbody>
+</table>
+</div>
+
+<footer>
+  <p><b>Origem dos dados.</b> Todos os números vêm da base <code>adegas</code> do PostgreSQL, extraídos
+  em 10/09/2026 sobre 23 ciclos do CIP e 4 do Shot no período de 26/08 a 10/09/2026. O mapa de passos
+  foi conferido contra o programa do CLP do Grafset <code>CIP_FERMENTADORES</code>.</p>
+  <p>As médias apresentadas são a média por ciclo, que é a que entra no cálculo da nota.</p>
+  <p><b>Próximo passo:</b> repetir este mesmo levantamento para os Maturadores, após a estação completar
+  ciclos suficientes.</p>
+</footer>
+
+</div>
+</body>
+</html>
