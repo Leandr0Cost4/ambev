@@ -221,3 +221,25 @@ tempo acima de 90 % e o corte durava mais. Com a causa agora identificada, as ru
    Se o Aldox ja produziu a 450 hl/h no passado, algo degradou.
 3. Depois disso, opcional: logica de override que reduz o setpoint de vazao automaticamente quando a
    P21 fica saturada, para a producao rodar na maior vazao sustentavel sem bater no intertravamento.
+
+---
+
+## 8. Resultado 27/09 18:53-18:58 - producao a 350 hl/h
+
+Com `FC11_SP1` = 350 hl/h, depois do transitorio de entrada no passo 115:
+
+- nivel estabiliza em 63-65 % (SP 65 %), sem acionar o `COLUMN_STOP_FEED`;
+- vazao ~58 % de 600 = ~350 hl/h;
+- P21 (`SP_P21`) estabiliza em **~77-80 %**;
+- FC11.OUT ~10 %.
+
+**Diagnostico confirmado:** a oscilacao era falta de capacidade da B421507 a 450 hl/h. Como a 350 hl/h a
+P21 ja precisa de ~78 %, a vazao maxima sustentavel com folga (P21 <= ~90 %) fica por volta de
+**390-400 hl/h**, enquanto a bomba nao for revisada.
+
+**Ponto de atencao:** na entrada do passo 115, a P21 ainda fica ~40 s em 100 % e o nivel chega a ~90 %,
+bem perto do intertravamento. A causa e o degrau de vazao na troca de passo (pico de ~430 hl/h). Uma
+rampa no setpoint de vazao na entrada do 115 suavizaria esse transitorio.
+
+**Rungs de teste (`test_bits.1`):** nao sao necessarias. Recomenda-se manter o bit em 0 e remover as
+rungs e as tags `FC11_HOLD`, `FC11_OUT_MEM` e `LC21_FF_GAIN` na proxima parada.
