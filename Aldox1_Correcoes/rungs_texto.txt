@@ -13,10 +13,10 @@ XIC(test_bits.1)XIC(FC11_HOLD)XIO(M_FC11_MAN)MOV(FC11_OUT_MEM,FC11.SO);
 // TESTE test_bits.1 - FC11 HOLD: coloca a FC11 em manual durante o hold. A rung anterior OTE(FC11.SWM) zera o bit a cada scan, entao ao sair do hold a FC11 volta ao automatico sem tranco.
 XIC(test_bits.1)XIC(FC11_HOLD)OTL(FC11.SWM);
 
-== Lad_099_Controllers - inserir ENTRE a rung 23 [MOV(100,LC21.MAXS)...] e a rung do PID(LC21,...) ==
-// TESTE test_bits.1 - LC21 FEEDFORWARD: soma a vazao de entrada FT11 na saida da bomba B421507 P21 (LC21.BIAS). Com test_bits.1 desligado o BIAS volta a zero (programa original).
-[XIC(test_bits.1) CPT(LC21.BIAS,INLET_FT11*LC21_FF_GAIN) ,XIO(test_bits.1) MOV(0,LC21.BIAS) ];
+== Lad_099_Controllers - inserir LOGO DEPOIS da rung do PID(LC21,...) (antes da rung 25 [XIC(M_PB_LC22_MAN)...]) ==
+// TESTE test_bits.1 - LC21 FEEDFORWARD: no passo 115, a velocidade da bomba B421507 P21 = saida da LC21 + ganho x (vazao FT11 - setpoint FC11). Com a vazao no setpoint a correcao e zero; se a alimentacao for cortada a P21 desacelera na hora. Nao mexe na PID (BIAS continua 0).
+XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)XIO(M_LC21_MAN)XIO(control_b421507_pid_off)CPT(SP_P21,LC21.OUT+LC21_FF_GAIN*(INLET_FT11-FC11.SP));
 
-// TESTE test_bits.1 - LC21 FEEDFORWARD: ao ligar ou desligar test_bits.1, passa a LC21 um scan em manual com SO = saida atual, para a entrada/saida do feedforward ser sem tranco.
-[XIC(test_bits.1) ONS(LC21_FF_ONS_ON) ,XIO(test_bits.1) ONS(LC21_FF_ONS_OFF) ][MOV(LC21.OUT,LC21.SO) ,OTL(LC21.SWM) ];
+// TESTE test_bits.1 - LC21 FEEDFORWARD: limita a velocidade da P21 entre 0 e 100 %.
+XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)[GRT(SP_P21,100.0) MOV(100.0,SP_P21) ,LES(SP_P21,0.0) MOV(0.0,SP_P21) ];
 

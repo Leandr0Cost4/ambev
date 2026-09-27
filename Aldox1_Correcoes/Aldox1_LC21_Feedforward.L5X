@@ -10,38 +10,26 @@
 <DataValue DataType="REAL" Radix="Float" Value="0.15"/>
 </Data>
 </Tag>
-<Tag Name="LC21_FF_ONS_ON" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Data>00</Data>
-<Data Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</Data>
-</Tag>
-<Tag Name="LC21_FF_ONS_OFF" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Data>00</Data>
-<Data Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</Data>
-</Tag>
 </Tags>
 <Programs Use="Context">
 <Program Use="Context" Name="Continuous">
 <Routines Use="Context">
 <Routine Use="Context" Name="Lad_099_Controllers" Type="RLL">
 <RLLContent Use="Context">
-<Rung Use="Target" Number="24" Type="N">
-<Comment>
-<![CDATA[TESTE test_bits.1 - LC21 FEEDFORWARD: soma a vazao de entrada FT11 na saida da bomba B421507 P21 (LC21.BIAS). Com test_bits.1 desligado o BIAS volta a zero (programa original).]]>
-</Comment>
-<Text>
-<![CDATA[[XIC(test_bits.1) CPT(LC21.BIAS,INLET_FT11*LC21_FF_GAIN) ,XIO(test_bits.1) MOV(0,LC21.BIAS) ];]]>
-</Text>
-</Rung>
 <Rung Use="Target" Number="25" Type="N">
 <Comment>
-<![CDATA[TESTE test_bits.1 - LC21 FEEDFORWARD: ao ligar ou desligar test_bits.1, passa a LC21 um scan em manual com SO = saida atual, para a entrada/saida do feedforward ser sem tranco.]]>
+<![CDATA[TESTE test_bits.1 - LC21 FEEDFORWARD: no passo 115, a velocidade da bomba B421507 P21 = saida da LC21 + ganho x (vazao FT11 - setpoint FC11). Com a vazao no setpoint a correcao e zero; se a alimentacao for cortada a P21 desacelera na hora. Nao mexe na PID (BIAS continua 0).]]>
 </Comment>
 <Text>
-<![CDATA[[XIC(test_bits.1) ONS(LC21_FF_ONS_ON) ,XIO(test_bits.1) ONS(LC21_FF_ONS_OFF) ][MOV(LC21.OUT,LC21.SO) ,OTL(LC21.SWM) ];]]>
+<![CDATA[XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)XIO(M_LC21_MAN)XIO(control_b421507_pid_off)CPT(SP_P21,LC21.OUT+LC21_FF_GAIN*(INLET_FT11-FC11.SP));]]>
+</Text>
+</Rung>
+<Rung Use="Target" Number="26" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - LC21 FEEDFORWARD: limita a velocidade da P21 entre 0 e 100 %.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)[GRT(SP_P21,100.0) MOV(100.0,SP_P21) ,LES(SP_P21,0.0) MOV(0.0,SP_P21) ];]]>
 </Text>
 </Rung>
 </RLLContent>
