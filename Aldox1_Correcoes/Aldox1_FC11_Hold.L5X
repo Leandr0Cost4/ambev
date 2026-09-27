@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="19.01" TargetType="Rung" TargetCount="4" ContainsContext="true" Owner="Automation, Amantrini Automação" ExportDate="Sun Sep 27 18:00:00 2026" ExportOptions="References DecoratedData Context RoutineLabels AliasReferences">
+<Controller Use="Context" Name="ALDOX_CA0104">
+<DataTypes Use="Context">
+</DataTypes>
+<Tags Use="Context">
+<Tag Name="FC11_HOLD" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data>00</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="FC11_OUT_MEM" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data>00 00 C8 41</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="25.0"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Context" Name="Continuous">
+<Routines Use="Context">
+<Routine Use="Context" Name="Lad_099_Controllers" Type="RLL">
+<RLLContent Use="Context">
+<Rung Use="Target" Number="4" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - FC11 HOLD: liga o hold da malha de vazao FC11 quando a alimentacao esta cortada (COLUMN_STOP_FEED) ou a bomba B421506 P11 esta desligada no passo 115.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)[XIC(COLUMN_STOP_FEED) ,XIO(INLET_P11_S) ]OTE(FC11_HOLD);]]>
+</Text>
+</Rung>
+<Rung Use="Target" Number="5" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - FC11 HOLD: memoriza a ultima saida boa da FC11 enquanto produz normal (P11 ligada e vazao acima de 100 hl/h).]]>
+</Comment>
+<Text>
+<![CDATA[XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)XIO(FC11_HOLD)XIO(M_FC11_MAN)XIC(INLET_P11_S)GRT(INLET_FT11,100)MOV(FC11.OUT,FC11_OUT_MEM);]]>
+</Text>
+</Rung>
+<Rung Use="Target" Number="6" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - FC11 HOLD: durante o hold, a saida manual da FC11 recebe a ultima saida boa (valvula FCV421501 fica parada na posicao de trabalho).]]>
+</Comment>
+<Text>
+<![CDATA[XIC(test_bits.1)XIC(FC11_HOLD)XIO(M_FC11_MAN)MOV(FC11_OUT_MEM,FC11.SO);]]>
+</Text>
+</Rung>
+<Rung Use="Target" Number="7" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - FC11 HOLD: coloca a FC11 em manual durante o hold. A rung anterior OTE(FC11.SWM) zera o bit a cada scan, entao ao sair do hold a FC11 volta ao automatico sem tranco.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(test_bits.1)XIC(FC11_HOLD)OTL(FC11.SWM);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>

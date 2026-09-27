@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="19.01" TargetType="Rung" TargetCount="2" ContainsContext="true" Owner="Automation, Amantrini Automação" ExportDate="Sun Sep 27 18:00:00 2026" ExportOptions="References DecoratedData Context RoutineLabels AliasReferences">
+<Controller Use="Context" Name="ALDOX_CA0104">
+<DataTypes Use="Context">
+</DataTypes>
+<Tags Use="Context">
+<Tag Name="LC21_FF_GAIN" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data>9A 99 19 3E</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.15"/>
+</Data>
+</Tag>
+<Tag Name="LC21_FF_ONS_ON" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data>00</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LC21_FF_ONS_OFF" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data>00</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Context" Name="Continuous">
+<Routines Use="Context">
+<Routine Use="Context" Name="Lad_099_Controllers" Type="RLL">
+<RLLContent Use="Context">
+<Rung Use="Target" Number="24" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - LC21 FEEDFORWARD: soma a vazao de entrada FT11 na saida da bomba B421507 P21 (LC21.BIAS). Com test_bits.1 desligado o BIAS volta a zero (programa original).]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(test_bits.1) CPT(LC21.BIAS,INLET_FT11*LC21_FF_GAIN) ,XIO(test_bits.1) MOV(0,LC21.BIAS) ];]]>
+</Text>
+</Rung>
+<Rung Use="Target" Number="25" Type="N">
+<Comment>
+<![CDATA[TESTE test_bits.1 - LC21 FEEDFORWARD: ao ligar ou desligar test_bits.1, passa a LC21 um scan em manual com SO = saida atual, para a entrada/saida do feedforward ser sem tranco.]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(test_bits.1) ONS(LC21_FF_ONS_ON) ,XIO(test_bits.1) ONS(LC21_FF_ONS_OFF) ][MOV(LC21.OUT,LC21.SO) ,OTL(LC21.SWM) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>

@@ -1,0 +1,22 @@
+ALTERNATIVA: colar o texto de cada rung no editor ASCII do RSLogix (duplo clique no numero da rung)
+
+== Lad_099_Controllers - inserir ENTRE a rung 3 [XIC(M_FC11_MAN)OTE(FC11.SWM);] e a rung 4 ==
+// TESTE test_bits.1 - FC11 HOLD: liga o hold da malha de vazao FC11 quando a alimentacao esta cortada (COLUMN_STOP_FEED) ou a bomba B421506 P11 esta desligada no passo 115.
+XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)[XIC(COLUMN_STOP_FEED) ,XIO(INLET_P11_S) ]OTE(FC11_HOLD);
+
+// TESTE test_bits.1 - FC11 HOLD: memoriza a ultima saida boa da FC11 enquanto produz normal (P11 ligada e vazao acima de 100 hl/h).
+XIC(test_bits.1)XIC(M_115_FORWARD_FLOW_PROD)XIO(FC11_HOLD)XIO(M_FC11_MAN)XIC(INLET_P11_S)GRT(INLET_FT11,100)MOV(FC11.OUT,FC11_OUT_MEM);
+
+// TESTE test_bits.1 - FC11 HOLD: durante o hold, a saida manual da FC11 recebe a ultima saida boa (valvula FCV421501 fica parada na posicao de trabalho).
+XIC(test_bits.1)XIC(FC11_HOLD)XIO(M_FC11_MAN)MOV(FC11_OUT_MEM,FC11.SO);
+
+// TESTE test_bits.1 - FC11 HOLD: coloca a FC11 em manual durante o hold. A rung anterior OTE(FC11.SWM) zera o bit a cada scan, entao ao sair do hold a FC11 volta ao automatico sem tranco.
+XIC(test_bits.1)XIC(FC11_HOLD)OTL(FC11.SWM);
+
+== Lad_099_Controllers - inserir ENTRE a rung 23 [MOV(100,LC21.MAXS)...] e a rung do PID(LC21,...) ==
+// TESTE test_bits.1 - LC21 FEEDFORWARD: soma a vazao de entrada FT11 na saida da bomba B421507 P21 (LC21.BIAS). Com test_bits.1 desligado o BIAS volta a zero (programa original).
+[XIC(test_bits.1) CPT(LC21.BIAS,INLET_FT11*LC21_FF_GAIN) ,XIO(test_bits.1) MOV(0,LC21.BIAS) ];
+
+// TESTE test_bits.1 - LC21 FEEDFORWARD: ao ligar ou desligar test_bits.1, passa a LC21 um scan em manual com SO = saida atual, para a entrada/saida do feedforward ser sem tranco.
+[XIC(test_bits.1) ONS(LC21_FF_ONS_ON) ,XIO(test_bits.1) ONS(LC21_FF_ONS_OFF) ][MOV(LC21.OUT,LC21.SO) ,OTL(LC21.SWM) ];
+
