@@ -187,3 +187,37 @@ valor anterior. O `DIV(1,LC21_TI,LC21.KI)` da rung 23 esta em AFI, entao o KI e 
 - **Correcao:** feedforward da vazao de entrada na LC21 (`LC21.BIAS`) e hold da FC11 durante o corte
   de alimentacao. Depois disso, resintonia moderada da LC21.
 - **Verificar:** tipo de tarefa e scan das PIDs, folga da P21 a 450 hl/h e rampas do inversor.
+
+---
+
+## 7. Atualizacao 27/09 - trend do RSLogix (100 ms), `test_bits.1` desligado
+
+**Antes da producao** (18:40:10 a 18:41:35): vazao ~40 % de 600 = ~240 hl/h, P21 ~52 %, nivel estavel
+em ~65 %. A malha de nivel funciona.
+
+**Passo 115** (a partir de 18:41:35): vazao ~76-78 % = ~455-470 hl/h (acima dos 450 do setpoint). A P21
+sobe ate **100 % e fica la**, e mesmo assim o nivel continua subindo ate ~100 %. O `COLUMN_STOP_FEED`
+corta a alimentacao, o nivel cai para ~30 %, a alimentacao volta e o ciclo se repete com periodo de
+~60 s. Na volta, a FC11 esta no limite (30 %).
+
+**Conclusao:** nas condicoes atuais, a bomba de saida B421507 **a 100 % nao consegue tirar ~450 hl/h
+da coluna**. A oscilacao e consequencia desse limite de capacidade. Nenhuma sintonia de PID resolve
+isso, porque a saida ja esta no maximo.
+
+**Por que as rungs de teste pioraram:** o corte da alimentacao acontece justamente porque o nivel esta
+alto. O feedforward, ao ver a vazao cair a zero, desacelerava a P21. Com isso o nivel ficava mais
+tempo acima de 90 % e o corte durava mais. Com a causa agora identificada, as rungs do `test_bits.1`
+(feedforward e hold da FC11) devem continuar desligadas.
+
+**Proximos passos:**
+1. Teste de producao com `FC11_SP1` = 400 hl/h. Se a P21 estabilizar abaixo de ~90 % e o nivel ficar
+   em 65 % sem corte, o diagnostico esta confirmado.
+2. Verificar em campo a B421507:
+   - frequencia real no inversor com 100 % de referencia (esta chegando na frequencia maxima?);
+   - parametro de frequencia maxima e limite de corrente;
+   - escala da saida analogica;
+   - restricoes na descarga (trocador, filtro, valvulas, pressao do tanque pulmao);
+   - cavitacao na succao.
+   Se o Aldox ja produziu a 450 hl/h no passado, algo degradou.
+3. Depois disso, opcional: logica de override que reduz o setpoint de vazao automaticamente quando a
+   P21 fica saturada, para a producao rodar na maior vazao sustentavel sem bater no intertravamento.
